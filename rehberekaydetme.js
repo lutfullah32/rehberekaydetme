@@ -113,7 +113,7 @@ function jsonToVCF(json, chat_id) {
     var vcffile = "";
     var vcfformat = fs.readFileSync('vcfformat.txt', 'utf8');
     var writestatu = true;
-    console.log(json)
+    //console.log(json)
     if(JSON.stringify(json) === JSON.stringify([]) || JSON.stringify(json) === JSON.stringify({})){
         bot.telegram.sendMessage(chat_id, "Excelde dönüştürülecek satır bulunamadı.")
         //console.log("excel boş")
