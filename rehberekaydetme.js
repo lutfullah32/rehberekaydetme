@@ -24,7 +24,7 @@ var baseURLfile = "https://api.telegram.org/file/bot";
 
 const bot = new Telegraf(token);
 var startNote = "Not: Rehberde karışıklık yaşamamak için '/ek önek' komutunu çalıştırarak isimlerin önüne ön ek getirebilirsiniz.\nÖrnek '/ek OSMNLC'\nOSMNLC Ali Ak";
-bot.start((ctx) => ctx.reply('Merhaba,\nBu bot ile elinizdeki isim ve numaralardan oluşan exceli rehberinize kaydedecek formata dönüştürebilirsiniz.\nTek yapmanız gereken exceli paylaşmak..\n\n'+ startNote));
+bot.start((ctx) => ctx.reply('Merhaba,\nBu bot ile elinizdeki ilk sütunu isim ve sonraki satırı numaralardan oluşan exceli rehberinize kaydedecek formata dönüştürebilirsiniz.\nTek yapmanız gereken exceli paylaşmak..\n\n'+ startNote));
 
 bot.on(message('sticker'), (ctx) => ctx.reply('👍'));
 var _body;
@@ -87,7 +87,7 @@ function getRemoteFile(filename, url, chat_id) {
 
         response.on('data', function (chunk) {
             cur += chunk.length;
-            showProgress(filename, cur, len, total);
+            //showProgress(filename, cur, len, total);
         });
 
         response.on('end', function () {
@@ -113,6 +113,12 @@ function jsonToVCF(json, chat_id) {
     var vcffile = "";
     var vcfformat = fs.readFileSync('vcfformat.txt', 'utf8');
     var writestatu = true;
+    console.log(json)
+    if(JSON.stringify(json) === JSON.stringify([]) || JSON.stringify(json) === JSON.stringify({})){
+        bot.telegram.sendMessage(chat_id, "Excelde dönüştürülecek satır bulunamadı.")
+        //console.log("excel boş")
+        return;
+    }
     json.forEach((repo) => {
         var line = vcfformat;
         Object.entries(repo).forEach(([key, value]) => {
