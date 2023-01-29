@@ -17,7 +17,7 @@ const FSDB = require("file-system-db");
 const db = new FSDB("db/database.json", false); 
 
 
-var token = "";
+var token = "5639049979:AAGFR_dLuQdbJLW5bY-HHvFemcLVQgTzvrk";
 
 var baseURL = "https://api.telegram.org/bot";
 var baseURLfile = "https://api.telegram.org/file/bot";
